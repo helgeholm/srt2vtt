@@ -39,3 +39,14 @@ __Arguments__
 
 * srtBuffer - `Buffer` containing the .srt file.
 * callback - `function(error, vttBuffer)`, in which `error` will be `null` if the conversion were successful, or an error message if not successful.  `vttBuffer` is a UTF8-encoded buffer containing the converted WEBVTT file data.
+
+<a name="convert" />
+### bin/convert.js
+
+A command-line utility that expects a `.srt` file in `stdin`, will transform it to `.vtt`, and send it to `stdout`.
+
+__Example__
+
+```
+$ node bin/convert.js < mighty_jack.srt > mighty_jack.vtt
+```
