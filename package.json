@@ -21,7 +21,6 @@
   "license": "MIT",
   "dependencies": {
     "codepage": "~1.3.4",
-    "mocha": "^1.21.4",
     "utfx": "~1.0.0"
   },
   "devDependencies": {
