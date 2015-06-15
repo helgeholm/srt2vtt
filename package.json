@@ -1,6 +1,6 @@
 {
   "name": "srt2vtt",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Encoding-aware .srt (SubRip Text) to .vtt (WebVTT) converter.",
   "main": "index.js",
   "scripts": {
