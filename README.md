@@ -30,14 +30,18 @@ For [Node.js](http://nodejs.org/), use [npm](http://npmjs.org/):
 
 <a name="srt2vtt" />
 ### srt2vtt (srtBuffer, callback)
+### srt2vtt (srtBuffer, defaultCodepageOverride, callback)
 
 It assumes input `srtBuffer` has the default CP1252 encoding, unless a UTF8, UTF16, UTF16LE, UTF32, or UTF32LE BOM is found at the start.
+
+If the `defaultCodepageOverride` is given, that codepage is used instead of CP1252.
 
 Callback is assumed to be a `function(error, vttBuffer)`.
 
 __Arguments__
 
 * srtBuffer - `Buffer` containing the .srt file.
+* defaultCodepageOverride (optional) - `int` number of codepage to use instead of CP1252 when no UTF BOM is found.  This must be a numeric value, so e.g. give `1256` for codepage CP1256 (Arabic).
 * callback - `function(error, vttBuffer)`, in which `error` will be `null` if the conversion were successful, or an error message if not successful.  `vttBuffer` is a UTF8-encoded buffer containing the converted WEBVTT file data.
 
 <a name="convert" />
