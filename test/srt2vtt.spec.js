@@ -4,12 +4,17 @@ var fs = require('fs');
 var srt2vtt = require(__dirname + '/../index');
 
 describe("srt2vtt", function () {
-  function checkFile(testId, useRaw, next) {
+  function checkFile(testId, useRaw, defaultCodepageOverride, next) {
+    if (next == undefined) {
+      next = defaultCodepageOverride;
+      defaultCodepageOverride = undefined;
+    }
+
     var input = fs.readFileSync(__dirname + '/data/' + testId + '.srt', {'encoding': null});
     var expected = fs.readFileSync(__dirname + '/data/' + testId + '.vtt', {'encoding': null});
     var convert = useRaw ? srt2vtt.raw : srt2vtt;
 
-    convert(input, function(err, output) {
+    convert(input, defaultCodepageOverride, function(err, output) {
       if (err)
         return next(err);
       function errinate(what) {
@@ -71,5 +76,9 @@ describe("srt2vtt", function () {
 
   it("Correctly interprets default UTF32LE encoded files", function (done) {
     checkFile('utf32le', false, done);
+  });
+
+  it("Can translate a non-standard CP1256 (Arabic) .srt file if encoding is specified", function (done) {
+    checkFile('forced-cp1256', false, 1256, done);
   });
 });
