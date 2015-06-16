@@ -35,8 +35,14 @@ function convert(buf, next) {
     r.start();
 }
 
-module.exports = function srt2vtt(buf, next) {
-  encoding.convertToUTF8(buf, function(err, utf8buf) {
+module.exports = function srt2vtt(buf, defaultCodepageOverride, next) {
+  // Handle defaultCodepageOverride being optional.
+  if (next == undefined) {
+    next = defaultCodepageOverride;
+    defaultCodepageOverride = undefined;
+  }
+
+  encoding.convertToUTF8(buf, defaultCodepageOverride, function(err, utf8buf) {
     if (err) return next(err);
     return convert(utf8buf, next);
   });

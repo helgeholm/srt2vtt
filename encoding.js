@@ -8,8 +8,13 @@ module.exports = {
 /* Default file encoding is CP1252.
  * Encoding can be UTF if a BOM is given.
  *
+ * If defaultCodepageOverride is specified, that is used instead of CP1252
+ * when no BOM is present.  Must be a numeric value.
+ *
  * https://en.wikipedia.org/wiki/.srt#Text_encoding */ 
-function convertToUTF8(buf, next) {
+function convertToUTF8(buf, defaultCodepageOverride, next) {
+  var defaultCodepage = defaultCodepageOverride || 1252;
+
   if (buf.length >= 3 &&
       buf[0] == 0xef && buf[1] == 0xbb && buf[2] == 0xbf) {
     // UTF8 - strip BOM
@@ -84,8 +89,8 @@ function convertToUTF8(buf, next) {
     next(null, new Buffer(utf8bytes));
 
   } else {
-    // No BOM means CP1252 - convert
-    var converted = new Buffer(cptable.utils.decode(1252, buf));
+    // No BOM means default code page (normally CP1252) - convert
+    var converted = new Buffer(cptable.utils.decode(defaultCodepage, buf));
     next(null, converted);
   }
 }
