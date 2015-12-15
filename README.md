@@ -12,7 +12,7 @@ Handles CP1252 and UTF8/16/16LE/32/32LE.
 var fs = require('fs');
 var srt2vtt = require('srt2vtt');
 
-var srtData = fs.readFileSnyc('captions.srt');
+var srtData = fs.readFileSync('captions.srt');
 srt2vtt(srtData, function(err, vttData) {
   if (err) throw new Error(err);
   fs.writeFileSync('captions.vtt', vttData);
