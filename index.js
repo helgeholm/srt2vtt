@@ -1,7 +1,13 @@
 var encoding = require('./encoding');
 var reader = require('./reader');
 
-function convert(buf, next) {
+function convert(buf, defaultCodepageOverride, next) {
+  // Handle defaultCodepageOverride being optional.
+  if (next == undefined) {
+    next = defaultCodepageOverride;
+    defaultCodepageOverride = undefined;
+  }
+
   var outputLines = [
   'WEBVTT',
   '',
